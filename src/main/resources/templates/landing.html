@@ -1,0 +1,39 @@
+
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        layout:decorate="~{layout}"
+>
+
+<body>
+<!-- Content starts -->
+<section class="my-3 p-3 bg-white rounded box-shadow" layout:fragment="content">
+    <div class="alert alert-success" role="alert">
+       SAML 2.0 authentication process
+        <p>
+            SAML userID =
+            <span class="badge badge-dark" th:text="${userID}">null</span>
+        </p>
+    </div>
+    <p><img class="img-fluid" th:src="@{/img/ssoflow.png}" /></p>
+
+        <a th:href="@{/saml/logout}" class="btn btn-spring btn-sm">
+            <i class="far fa-user-circle"></i> Global logout
+        </a>
+    ----
+        <a th:href="@{/saml/logout/SingleLogout}" class="btn btn-spring btn-sm">
+            <i class="fas fa-sign-out-alt"></i> Local logout
+        </a>
+<p>
+    <b>Default IDP without discovery</b>
+    The mode is enabled by default and automatically selects the default IDP without performing discovery.
+    In case the property isn't set, system will automatically use the first available IDP.
+</p>
+</section>
+<!-- Content ends -->
+</body>
+
+</html>
