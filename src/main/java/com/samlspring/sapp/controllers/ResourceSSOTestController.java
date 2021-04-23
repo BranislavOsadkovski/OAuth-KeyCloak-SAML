@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("slide")
-public class SlideshowController {
+public class ResourceSSOTestController {
 
     private static final Logger LOG = Logger.getRootLogger();
     @RequestMapping(method = RequestMethod.GET,path = "/learn")

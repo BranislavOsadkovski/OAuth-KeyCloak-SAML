@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.metadata.MetadataManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,9 @@ public class LandingController {
     public String landing(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        String userId = detailsService.loadUserId();
+
+
+        String userId = detailsService.loadUserBySAML((SAMLCredential) auth.getCredentials()).getID();
         model.addAttribute("userID",userId);
 
         LOG.info(this.getClass().getSimpleName() + " GET path='/landing'");

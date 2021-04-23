@@ -2,7 +2,7 @@ package com.samlspring.sapp.entityImpl;
 
 import java.util.List;
 
-public class User {
+public class LocalUser {
 
     private final String ID;
     private final String username;
@@ -13,8 +13,8 @@ public class User {
     private final List Roles;
 
 
-    public User( String samlID,String username, String firstName, String lastName, String email, String locale, List roles) {
-        this.ID=samlID;
+    public LocalUser(String samlID, String username, String firstName, String lastName, String email, String locale, List roles) {
+        this.ID = samlID;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,9 +23,8 @@ public class User {
         Roles = roles;
     }
 
-    public String getID(){
-        return ID;
-    }
+    public String getID() { return ID; }
+
     public String getUsername() {
         return username;
     }

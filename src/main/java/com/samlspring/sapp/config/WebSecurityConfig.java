@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
         this.multiThreadedHttpConnectionManager.shutdown();
     }
 
+
     @Bean
     public VelocityEngine velocityEngine() {
         return VelocityFactory.getEngine();
@@ -378,15 +379,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
         return new HTTPRedirectDeflateBinding(parserPool());
     }
 
-//    @Bean
-//    public HTTPSOAP11Binding httpSOAP11Binding() {
-//        return new HTTPSOAP11Binding(parserPool());
-//    }
-//
-//    @Bean
-//    public HTTPPAOS11Binding httpPAOS11Binding() {
-//        return new HTTPPAOS11Binding(parserPool());
-//    }
+    @Bean
+    public HTTPSOAP11Binding httpSOAP11Binding() {
+        return new HTTPSOAP11Binding(parserPool());
+    }
+
+    @Bean
+    public HTTPPAOS11Binding httpPAOS11Binding() {
+        return new HTTPPAOS11Binding(parserPool());
+    }
 
     // Processor
     @Bean
@@ -395,8 +396,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
         bindings.add(httpRedirectDeflateBinding());
         bindings.add(httpPostBinding());
         bindings.add(artifactBinding(parserPool(), velocityEngine()));
-//        bindings.add(httpSOAP11Binding());
-//        bindings.add(httpPAOS11Binding());
+        bindings.add(httpSOAP11Binding());
+        bindings.add(httpPAOS11Binding());
         return new SAMLProcessorImpl(bindings);
     }
 
