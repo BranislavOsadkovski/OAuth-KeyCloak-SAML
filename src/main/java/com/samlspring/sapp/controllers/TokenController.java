@@ -2,6 +2,7 @@ package com.samlspring.sapp.controllers;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.samlspring.sapp.SAMLcore.SAMLUserDetailsServiceImpl;
+import com.samlspring.sapp.agents.TokenAgent;
 import com.samlspring.sapp.entityImpl.LocalUser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class TokenController {
     private final Logger LOG = Logger.getRootLogger();
     @Autowired
     private SAMLUserDetailsServiceImpl samlUserDetailsService;
-    private final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+    @Autowired
+    private TokenAgent tokenAgent;
 
     private final String dummyStoreURI = "http://localhost:8090/dummy_store/get_token";
 
@@ -39,7 +40,8 @@ public class TokenController {
 
 
         //Service generates a unique Token
-        String TOKEN = generateNewToken();
+        String TOKEN = tokenAgent.generateNewUrlToken();
+
         /**
          * send user token
          * redirect:{URI}/{TOKEN_VALUE}
@@ -50,11 +52,7 @@ public class TokenController {
     }
 
 
-    private String generateNewToken() {
-        byte[] randomBytes = new byte[53];
-        secureRandom.nextBytes(randomBytes);
-        return base64Encoder.encodeToString(randomBytes);
-    }
+
 
     private class Body implements Serializable {
         @JsonValue
