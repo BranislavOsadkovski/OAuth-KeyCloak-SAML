@@ -16,10 +16,10 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     CurrentUserHandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName("index");
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

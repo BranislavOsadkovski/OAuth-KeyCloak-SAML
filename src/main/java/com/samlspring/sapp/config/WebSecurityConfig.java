@@ -225,6 +225,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
     public MetadataGenerator metadataGenerator() {
         MetadataGenerator metadataGenerator = new MetadataGenerator();
         metadataGenerator.setEntityId("sp-crc");  // ServiceProvider EntityID
+        metadataGenerator.setEntityBaseURL("http://localhost:8080");
         metadataGenerator.setExtendedMetadata(extendedMetadata());
         metadataGenerator.setIncludeDiscoveryExtension(false);
         metadataGenerator.setKeyManager(keyManager());
@@ -258,8 +259,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
     public SavedRequestAwareAuthenticationSuccessHandler successRedirectHandler() {
         SavedRequestAwareAuthenticationSuccessHandler successRedirectHandler =
                 new SavedRequestAwareAuthenticationSuccessHandler();
-//        successRedirectHandler.setDefaultTargetUrl("/authenticator/landing");
-          successRedirectHandler.setDefaultTargetUrl("/dummy_store/redirect");
+          successRedirectHandler.setDefaultTargetUrl("/auth/redirect-action/dummy_store");
         return successRedirectHandler;
     }
 
@@ -458,7 +458,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
                 .addFilterBefore(samlFilter(), CsrfFilter.class);
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+//                .antMatchers("/").permitAll()
                 .antMatchers("/saml/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/img/**").permitAll()

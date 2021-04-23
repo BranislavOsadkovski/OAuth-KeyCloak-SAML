@@ -49,16 +49,4 @@ public class LocalUser {
         return Roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", locale='" + locale + '\'' +
-                ", Roles=" + Roles +
-                '}';
-    }
 }
