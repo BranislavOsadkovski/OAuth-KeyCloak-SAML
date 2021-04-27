@@ -48,6 +48,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.*;
 
+@SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "JavaDoc"})
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements InitializingBean, DisposableBean {
@@ -240,7 +241,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
                 .getResource("classpath:/saml/keystore.jks");
         String storePass = "secret";
         String keyAlias = "my-client";
-        Map<String, String> passwords = new HashMap<String, String>();
+        Map<String, String> passwords = new HashMap<>();
 
         passwords.put(keyAlias, storePass);
 
@@ -392,7 +393,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
     // Processor
     @Bean
     public SAMLProcessorImpl processor() {
-        Collection<SAMLBinding> bindings = new ArrayList<SAMLBinding>();
+        Collection<SAMLBinding> bindings = new ArrayList<>();
         bindings.add(httpRedirectDeflateBinding());
         bindings.add(httpPostBinding());
         bindings.add(artifactBinding(parserPool(), velocityEngine()));
@@ -409,7 +410,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
      */
     @Bean
     public FilterChainProxy samlFilter() throws Exception {
-        List<SecurityFilterChain> chains = new ArrayList<SecurityFilterChain>();
+        List<SecurityFilterChain> chains = new ArrayList<>();
         chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/login/**"),
                 samlEntryPoint()));
         chains.add(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/saml/logout/**"),
@@ -458,7 +459,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements I
                 .addFilterBefore(samlFilter(), CsrfFilter.class);
         http
                 .authorizeRequests()
-//                .antMatchers("/").permitAll()
                 .antMatchers("/saml/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/img/**").permitAll()

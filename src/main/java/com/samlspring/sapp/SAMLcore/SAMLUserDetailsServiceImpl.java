@@ -1,7 +1,6 @@
 package com.samlspring.sapp.SAMLcore;
 
 import com.samlspring.sapp.entityImpl.LocalUser;
-import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.schema.impl.XSAnyImpl;
@@ -16,15 +15,10 @@ import java.util.List;
 @Service
 public class SAMLUserDetailsServiceImpl implements SAMLUserDetailsService {
 
-    private static final Logger LOG = Logger.getRootLogger();
-    private LocalUser localUser;
-
     /**
      * Parses local user from SAML request and loads it with SAMLCredential object
      * The method is supposed to identify local account of user referenced by
      * data in the SAML assertion and return UserDetails object describing the user.
-     * <p>
-     * <p>
      * <p>
      * org.opensaml.saml2.core.Attribute  has method getSAMLAttributeValues() that returns java.util.List with generic type XMLObject List<XMLObject> that needs to be unmarshalled using
      * XML parser Unmarshal XMLObject for saml2 Attribute.class that contains Attribute values
@@ -51,7 +45,7 @@ public class SAMLUserDetailsServiceImpl implements SAMLUserDetailsService {
             }
         }));
 
-        localUser = new LocalUser(samlID, Username, FirstName, LastName, Email, locale, roles);
+        LocalUser localUser = new LocalUser(samlID, Username, FirstName, LastName, Email, locale, roles);
 
         return localUser;
     }
