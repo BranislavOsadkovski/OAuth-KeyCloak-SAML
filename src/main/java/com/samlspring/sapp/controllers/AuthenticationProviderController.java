@@ -1,9 +1,9 @@
 package com.samlspring.sapp.controllers;
 
 import com.samlspring.sapp.SAMLcore.SAMLUserDetailsServiceImpl;
-import com.samlspring.sapp.agents.TokenAgent;
+import com.samlspring.sapp.agents.AuthenticationProviderService;
 import com.samlspring.sapp.entityImpl.LocalUser;
-import com.samlspring.sapp.webclient.TokenPayload;
+import com.samlspring.sapp.payloads.AuthenticationContext;
 import com.samlspring.sapp.webclient.WebClientApi;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class AuthenticationProviderController {
     @Autowired
     private SAMLUserDetailsServiceImpl samlUserDetailsService;
     @Autowired
-    private TokenAgent tokenAgent;
+    private AuthenticationProviderService authenticationProviderService;
     @Autowired
     private WebClientApi webClientApi;
 
@@ -41,11 +41,11 @@ public class AuthenticationProviderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         LocalUser localUser = samlUserDetailsService.loadUserBySAML((SAMLCredential) auth.getCredentials());
 
-        byte[] TOKEN = tokenAgent.generateNewToken();
+        byte[] TOKEN = authenticationProviderService.generateNewToken();
         String URL_TOKEN = new String(Base64.getUrlEncoder().encode(TOKEN));
         String POST_TOKEN = new String(TOKEN);
 
-        ResponseEntity responseEntity = webClientApi.sendPayloadData(DUMMY_STORE_TOKEN_URI,new TokenPayload(POST_TOKEN, localUser)).flux().toStream().findFirst().get();
+        ResponseEntity responseEntity = webClientApi.sendPayloadData(DUMMY_STORE_TOKEN_URI,new AuthenticationContext(POST_TOKEN, localUser)).flux().toStream().findFirst().get();
 
         if(responseEntity.getStatusCode()!= HttpStatus.OK){
             throw new ConnectException("Payload was not delivered!");

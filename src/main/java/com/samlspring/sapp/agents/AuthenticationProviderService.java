@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 @Service
-public class TokenAgent {
+public class AuthenticationProviderService {
     SecureRandom secureRandom = null; //threadsafe
 
     public byte[] generateNewToken() {

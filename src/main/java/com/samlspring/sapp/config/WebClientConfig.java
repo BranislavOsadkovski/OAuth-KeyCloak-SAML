@@ -1,4 +1,4 @@
-package com.samlspring.sapp.webclient;
+package com.samlspring.sapp.config;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
