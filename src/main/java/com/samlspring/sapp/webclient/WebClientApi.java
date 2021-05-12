@@ -14,10 +14,10 @@ public class WebClientApi {
     @Autowired
     WebClient webClient;
 
-    public Mono<ResponseEntity<Object>> sendData(TokenPayload tokenPayload) {
+    public Mono<ResponseEntity<Object>> sendPayloadData(String URI,TokenPayload tokenPayload) {
 
         return webClient.post()
-                .uri("http://localhost:8090/dummy_store/get_token")
+                .uri(URI)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(tokenPayload)
                 .retrieve()

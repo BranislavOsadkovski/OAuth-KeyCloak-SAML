@@ -1,6 +1,8 @@
 package com.samlspring.sapp.SAMLcore;
 
-import org.apache.log4j.Logger;
+import java.security.Principal;
+
+import com.samlspring.sapp.stereotypes.CurrentUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -10,13 +12,11 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import java.security.Principal;
+
 
 @Component
 public class CurrentUserHandlerMethodArgumentResolver implements
         HandlerMethodArgumentResolver {
-
-    private static final Logger LOG = Logger.getRootLogger();
 
     public boolean supportsParameter(MethodParameter methodParameter) {
         return methodParameter.getParameterAnnotation(CurrentUser.class) != null
@@ -26,7 +26,6 @@ public class CurrentUserHandlerMethodArgumentResolver implements
     public Object resolveArgument(MethodParameter methodParameter,
                                   ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-
         if (this.supportsParameter(methodParameter)) {
             Principal principal = (Principal) webRequest.getUserPrincipal();
             return (User) ((Authentication) principal).getPrincipal();

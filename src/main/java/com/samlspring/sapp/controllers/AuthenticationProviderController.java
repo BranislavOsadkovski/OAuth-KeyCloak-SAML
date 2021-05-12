@@ -22,7 +22,7 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping("auth/redirect-action")
-public class TokenRedirectController {
+public class AuthenticationProviderController {
 
     private final Logger LOG = Logger.getRootLogger();
     @Autowired
@@ -45,7 +45,7 @@ public class TokenRedirectController {
         String URL_TOKEN = new String(Base64.getUrlEncoder().encode(TOKEN));
         String POST_TOKEN = new String(TOKEN);
 
-        ResponseEntity responseEntity = webClientApi.sendData(new TokenPayload(POST_TOKEN, localUser)).flux().toStream().findFirst().get();
+        ResponseEntity responseEntity = webClientApi.sendPayloadData(DUMMY_STORE_TOKEN_URI,new TokenPayload(POST_TOKEN, localUser)).flux().toStream().findFirst().get();
 
         if(responseEntity.getStatusCode()!= HttpStatus.OK){
             throw new ConnectException("Payload was not delivered!");
